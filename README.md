@@ -3,6 +3,9 @@
  - [narumii](https://github.com/narumii/Deobfuscator)
  - [java-deobfuscator](https://github.com/java-deobfuscator/deobfuscator)
 
+## Creating new transformers
+ - Open the issue ticket and write which transformer you need to add.
+
 ## Adding transformers in deobfuscator
  - ## narumii
    - Move directory to `uwu/narumi/deobfuscator/transformer/impl`
