@@ -21,7 +21,7 @@ public class BozoriuszStringTransformer extends Transformer {
         deobfuscator.classes().forEach(classNode -> {
             classNode.methods.forEach(methodNode -> {
                 Map keys = new HashMap();
-                if(!methodNode.name.equals("<clinit>") || methodNode.name.equals("<clinit>")){
+                if(!methodNode.name.equals("<clinit>") || methodNode.name.equals("<clinit>")){ //GOTO: мне лень убирать это
                     Arrays.stream(methodNode.instructions.toArray())
                             .forEach(insn -> {
                                 if(isLong(insn) && insn.getNext() != null
@@ -36,14 +36,6 @@ public class BozoriuszStringTransformer extends Transformer {
                                     long key = getLong(insn);
                                     String value = getString(insn.getNext().getNext().getNext().getNext());
                                     keys.put(key,value);
-
-                                    //if(((FieldInsnNode) insn).name.equals(fieldName[0])){
-                                    //    LabelNode lb = ((LookupSwitchInsnNode) insn.getNext().getNext()).dflt;
-                                    //    methodNode.instructions.remove(insn.getNext().getNext());
-                                    //    methodNode.instructions.remove(insn.getNext());
-                                    //    methodNode.instructions.set(insn, new JumpInsnNode(GOTO, lb));
-                                    //    toDel2.put(insn,lb);
-                                    //}
                                 }
                             });
                     Arrays.stream(methodNode.instructions.toArray())
@@ -67,18 +59,8 @@ public class BozoriuszStringTransformer extends Transformer {
                                             throw new RuntimeException(e);
                                         }
                                     }
-
-                                    //if(((FieldInsnNode) insn).name.equals(fieldName[0])){
-                                    //    LabelNode lb = ((LookupSwitchInsnNode) insn.getNext().getNext()).dflt;
-                                    //    methodNode.instructions.remove(insn.getNext().getNext());
-                                    //    methodNode.instructions.remove(insn.getNext());
-                                    //    methodNode.instructions.set(insn, new JumpInsnNode(GOTO, lb));
-                                    //    toDel2.put(insn,lb);
-                                    //}
                                 }
                             });
-                    //strings.forEach((key, str) -> System.out.println("Key: "+key+"     Value: "+str));
-                    //keys.forEach((key, str) -> System.out.println("Key: "+key+"     Value: "+str));
                 }
             });
         });
@@ -93,7 +75,6 @@ public class BozoriuszStringTransformer extends Transformer {
                                     long key = getLong(insn);
                                     if(strings.get(key) != null){
                                         insns.add(insn.getNext());
-                                        //System.out.println("Key: "+key+"     Value: "+strings.get(key));
                                         methodNode.instructions.set(insn, new LdcInsnNode(strings.get(key)));
                                     } else {
                                         insns.add(insn);
